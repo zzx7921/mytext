@@ -3,13 +3,20 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+import sys
 
 def get_dataframe_from_excel():
-    """读取Excel销售数据，返回处理后的DataFrame"""
-    # 替换为你的Excel文件实际路径（比如D:\data\supermarket_sales.xlsx）
-    excel_path = r'D:\streamlit_env\（商场销售数据）supermarket_sales.xlsx'  # r表示原始字符串，避免路径转义
+    """读取Excel销售数据，返回处理后的DataFrame（使用相对路径）"""
+    # ========== 关键修改：相对路径配置 ==========
+    # 获取当前脚本所在目录（确保无论在哪运行，都能找到同目录的Excel）
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # 拼接相对路径：当前目录 + Excel文件名（无需盘符）
+    excel_filename = '（商场销售数据）supermarket_sales.xlsx'
+    excel_path = os.path.join(current_dir, excel_filename)  # 自动适配Windows/Linux路径分隔符
+    
+    # 检查文件是否存在
     if not os.path.exists(excel_path):
-        st.error(f"未找到Excel文件：{excel_path}")
+        st.error(f"未找到Excel文件！请确认文件 {excel_filename} 放在代码同目录下\n当前查找路径：{excel_path}")
         st.stop()  # 停止程序运行
     
     try:
