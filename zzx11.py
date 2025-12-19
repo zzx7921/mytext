@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-企鹅分类器 - 图片匹配修复版
-运行目录：D:\streamlit_env
-解决问题：预测物种与图片不符（阿德利企鹅显示岩石图）
-"""
-
 import streamlit as st
 import pickle
 import pandas as pd
